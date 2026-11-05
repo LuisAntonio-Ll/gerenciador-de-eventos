@@ -1,0 +1,132 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Event Manager API",
+    "description": "API RESTful para gestão de eventos com limite de vagas e controle de inscrições.",
+    "version": "1.0.0"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Events",
+      "description": "Eventos e inscrições"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/events": {
+      "post": {
+        "tags": [
+          "Events"
+        ],
+        "description": "Cria um novo evento com limite de vagas.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Dados do evento",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "example": "Workshop Node"
+                },
+                "date": {
+                  "type": "string",
+                  "example": "2026-11-10T19:00:00Z"
+                },
+                "capacity": {
+                  "type": "number",
+                  "example": 2
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Evento criado com sucesso."
+          },
+          "400": {
+            "description": "Dados inválidos."
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Events"
+        ],
+        "description": "Lista todos os eventos com a contagem de inscrições (registrationsCount).",
+        "responses": {
+          "200": {
+            "description": "Lista de eventos."
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/events/{id}/register": {
+      "post": {
+        "tags": [
+          "Events"
+        ],
+        "description": "Registra um participante em um evento, respeitando o limite de vagas.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID do evento"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Dados do participante",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "participantName": {
+                  "type": "string",
+                  "example": "Maria"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "maria@email.com"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Inscrição realizada."
+          },
+          "400": {
+            "description": "Dados inválidos."
+          },
+          "403": {
+            "description": "Evento lotado."
+          },
+          "404": {
+            "description": "Evento não encontrado."
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  }
+}

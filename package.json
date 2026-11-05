@@ -1,0 +1,24 @@
+{
+  "name": "event-manager",
+  "version": "2.0.0",
+  "description": "API RESTful para um Sistema de Gestão de Eventos (Node.js, Express, Joi, Sequelize, SQLite, Jest, Swagger)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "jest",
+    "swagger": "node swagger.js"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "joi": "^17.13.3",
+    "sequelize": "^6.37.3",
+    "sqlite3": "^5.1.7",
+    "swagger-autogen": "^2.23.7",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
+  }
+}
